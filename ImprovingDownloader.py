@@ -10,7 +10,7 @@ os.chdir("C:\\Users\\Admin\\Music")
 savedir = "Working Playlist"
 if not os.path.exists(savedir):
     os.makedirs(savedir)
-    print "Directory created. Please move url list text file into this directory and re run."
+    print("Directory created. Please move url list text file into this directory and re run.")
 else: 
     os.chdir(savedir)
 
@@ -45,7 +45,7 @@ for line in to_get:
         try:
             ydl.download([line])
             time.sleep(270)
-            print "thunk"
+            print("thunk")
         except: 
             failed.append(line)
 

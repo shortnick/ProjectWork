@@ -34,7 +34,7 @@ outfolder = os.path.join(savedir,listfile[0:-4])
 os.mkdir(outfolder)
 os.chdir(outfolder)
 
-# create YouTube downloader
+# spell out YouTube downloader options
 options = {
     # fill in first two, if your playlist is private    
     #'username':''
@@ -57,7 +57,7 @@ options = {
 failed = []
 
 
-# uses to_get list to download youtube videos as mp3s
+# uses to_get list/options to download youtube videos as mp3s
 for line in to_get:
     with youtube_dl.YoutubeDL(options) as ydl:
         try:
@@ -68,7 +68,7 @@ for line in to_get:
 print("writing finished")
 
 if len(failed) > 0:
-    with open("failureLog.txt", "w+") as fileout:
+    with open((listfile[0:-4]+"FailureLog.txt"), "w+") as fileout:
         for x in failed:
             fileout.write(x + "\n")
             fileout.close()

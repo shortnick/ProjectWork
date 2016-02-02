@@ -5,6 +5,8 @@
 from __future__ import unicode_literals
 import os
 import youtube_dl
+from subprocess import call
+
 
 #working dir here
 os.chdir("C:\\Users\\Admin\\Music")
@@ -20,7 +22,7 @@ else:
 #text file (with .txt) that has urls in it. format: plain urls (http://...), 
 #one per line. playlist url also allowed
 #make sure it's located in the savedir
-listfile= "playlisttest.txt"
+listfile= "playlisttest3.txt"
 
 #opens listfile from the savedir. 
 bob = os.path.join(savedir, listfile)
@@ -44,16 +46,20 @@ options = {
     'audioformat' : "mp3",      # convert to mp3 
     'output': "unicode(%(title)s)",        # name the file the title of the video
     'write-description': True,  #? include as metadata?
-    'noplaylist' : True,        # only download single song, not playlist
+    'noplaylist' : False,        # only download single song, not playlist
     'add-metadata' : True,      #write metadata in, too. maybe just technical?
+    #'exec':"ffmpeg -af {} dynaudnorm {}",    
     'postprocessors': [{        #takes the downloaded info, exports in this format
         'key': 'FFmpegExtractAudio',
         'preferredcodec': 'mp3',
         'preferredquality': '320',
+        
                 }],
-    'sleep-interval': '5'       #youtube-dl's native timing 'tween downloads
+    'sleep-interval': '5',       #youtube-dl's native timing 'tween downloads
     }       
-    
+#   need to map the following command into the above lambda
+#ffmpeg -i "Wolfmother - Woman.mp3" -af dynaudnorm newwolfy.mp3   
+   
 failed = []
 
 
@@ -81,4 +87,10 @@ for name in os.listdir(outfolder):
         os.rename(os.path.join(outfolder,name),os.path.join(outfolder,name1))
 print("renaming complete")
 
+for name in os.listdir(outfolder):
+    if os.path.splitext(name)[1] ==".mp3":
+        me = "ffmpeg -i \""+name+"\" -af dynaudnorm \""+name+"\""
+        print(me)
+        call(me)
+print("normalization complete")
 

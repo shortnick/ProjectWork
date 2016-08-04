@@ -6,13 +6,20 @@ from __future__ import unicode_literals
 import os
 import youtube_dl
 from subprocess import call
+import time 
 
+# TO DO:
+# line 39- if folder DOESNT exist, make it
+# replace time.time() -at same-point- with something better
+# added youtube-naming switch, but gotta fix naming options map for soundcloud
+# refactor into functions(), universalize the options for diff websites by passing in a tag
+# wrap whole thing for command line: take input list and destination folder, create folder if not present
 
 #working dir here
-os.chdir("C:\\Users\\Admin\\Music")
+os.chdir("C:\\Users\\user\\Music")
 
 # set/create destination directory, update to current working directory command
-savedir = "C:\\Users\\Admin\\Music\\WorkingPlaylist"
+savedir = "C:\\Users\\user\\Music\\WorkingPlaylist"
 if not os.path.exists(savedir):
     os.makedirs(savedir)
     print("Directory created. Please move url list text file into this directory and re run.")
@@ -22,7 +29,7 @@ else:
 #text file (with .txt) that has urls in it. format: plain urls (http://...), 
 #one per line. playlist url also allowed
 #make sure it's located in the savedir
-listfile= "playlisttest3.txt"
+listfile= "playlisttest.txt"
 
 #opens listfile from the savedir. 
 bob = os.path.join(savedir, listfile)
@@ -32,7 +39,7 @@ with open(bob, "r") as ins:
         to_get.append(line)
         
 #makes folder out of listfile, then changes working directory to that one
-outfolder = os.path.join(savedir,listfile[0:-4])
+outfolder = os.path.join(savedir,listfile[0:-4]+str(time.time()))
 os.mkdir(outfolder)
 os.chdir(outfolder)
 
@@ -80,17 +87,27 @@ if len(failed) > 0:
             fileout.close()
 print("fail list done")
 
-# rename function, remove last 12 char of file name, loses the YT designator
-for name in os.listdir(outfolder):
-    if os.path.splitext(name)[1] ==".mp3":
-        name1 = os.path.splitext(name)[0][0:-12]+".mp3"
-        os.rename(os.path.join(outfolder,name),os.path.join(outfolder,name1))
-print("renaming complete")
+# rename function for youtube files, remove last 12 char of file name, loses the YT designator
+if to_get[0].find("https://www.youtube.com", 0, 22) > -1:
+    for name in os.listdir(outfolder):
+        if os.path.splitext(name)[1] ==".mp3":
+            name1 = os.path.splitext(name)[0][0:-12]+".mp3"
+            os.rename(os.path.join(outfolder,name),os.path.join(outfolder,name1))
+    print("renaming complete")
+elif to_get[0].find("soundcloud", 0, 22) > -1:
+    for name in os.listdir(outfolder):
+        if os.path.splitext(name)[1] ==".mp3":
+            name1 = os.path.splitext(name)[0][0:-8]+".mp3"
+            os.rename(os.path.join(outfolder,name),os.path.join(outfolder,name1))
+    print("renaming complete")
 
+
+'''
 for name in os.listdir(outfolder):
     if os.path.splitext(name)[1] ==".mp3":
         me = "ffmpeg -i \""+name+"\" -af dynaudnorm \""+name+"\""
         print(me)
         call(me)
 print("normalization complete")
-
+'''
+print("job done")

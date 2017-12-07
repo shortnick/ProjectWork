@@ -11,7 +11,7 @@ import time
 os.chdir("C:\\Users\\user\\Music")
 
 # set/create destination directory, update to current working directory command
-savedir = "C:\\Users\\user\\Music\\workingPlaylist"
+savedir = "C:\\Users\\user\\Music\\xxxxxxxxx"
 if not os.path.exists(savedir):
     os.makedirs(savedir)
     print("Directory created. Please move url list text file into this directory and re run.")

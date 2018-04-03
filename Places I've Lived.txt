@@ -1,0 +1,37 @@
+Places I've Lived
+21st Ave NE & 50th - January 2005
+2nd & Battery - June 2006 (left June 2007)
+Mary's - January 2010
+Beacon Hill - February to August 2010
+Mormon Hostel - Sept 2010 Aug 2015
+Jay's - Sept 2015 April 2017
+Now - May 2017 to Current
+
+Coffee Shops
+Sureshot - arrival
+Cortona Cafe, 
+Uptown (4th & Wall)
+Cafe Vita
+SCC cafeteria
+Henry cafe
+Suzzalo cafe
+Cafe Allegro
+Bedlam
+
+Books- 
+Magus, ?Twice Sold Tales?, old Elliot Bay, Central Library - arrival
+
+
+Ada's, Capitol Hill Library, current Elliot Bay
+
+
+XXNeed coordinates for all these places
+----Need a csv or geojson for each layer
+	-- Can probably be done by adding a layer for each type
+	Symbols: red triangle, black border for hosue
+			blue circle for coffee
+			green square for book
+Need a legend (leaflet?)
+Need layer control
+
+- host it on nearly free speech? on github?
